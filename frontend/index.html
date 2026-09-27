@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PHÚ AI WEBNEW</title>
+<style>
+body{
+font-family:system-ui;
+margin:0;
+background:#f4f6fa;
+color:#166534;
+text-align:center;
+text-transform:uppercase;
+}
+
+.w{
+max-width:950px;
+margin:auto;
+padding:30px 18px;
+text-align:center;
+}
+
+.p{
+background:#fff;
+border-radius:18px;
+padding:24px;
+margin:16px 0;
+box-shadow:0 8px 30px #0001;
+text-align:center;
+}
+
+input,textarea{
+width:100%;
+box-sizing:border-box;
+padding:12px;
+margin:8px 0 14px;
+border:1px solid #ddd;
+border-radius:9px;
+text-align:center;
+text-transform:uppercase;
+}
+
+button{
+padding:11px 15px;
+border:0;
+border-radius:9px;
+background:#facc15;
+color:#166534;
+font-weight:800;
+margin:8px;
+cursor:pointer;
+text-transform:uppercase;
+}
+
+button:hover{
+background:#eab308;
+}
+
+.lang{
+position:fixed;
+top:15px;
+right:15px;
+z-index:9999;
+}
+
+.lang button{
+margin-left:5px;
+}
+
+.v{
+padding:13px;
+border:1px solid #ddd;
+border-radius:10px;
+margin:8px 0;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:15px;
+text-align:center;
+text-transform:uppercase;
+}
+</style>
+</head>
+
+<body>
+
+<div class="lang">
+<button id="langVI" onclick="setLang('vi')">VI</button>
+<button id="langEN" onclick="setLang('en')">EN</button>
+</div>
+
+<div class="w">
+
+<div class="p">
+<h1 id="title">PHÚ AI WEBNEW</h1>
+<p id="subtitle">RUN DEMO 003 · Phiên bản + Chỉnh sửa</p>
+
+<input id="name" value="PHÚ AI WEBNEW Demo">
+
+<button id="createBtn" onclick="v1()">① Tạo Project + V1</button>
+</div>
+
+<div class="p">
+<h2 id="revisionTitle">Revision</h2>
+
+<textarea id="note" placeholder="Nhập yêu cầu sửa..."></textarea>
+
+<button id="revisionBtn" onclick="revision()">② Tạo Revision</button>
+</div>
+
+<div class="p">
+<h2 id="versionsTitle">Versions</h2>
+<div id="out"></div>
+</div>
+
+</div>
+
+<script>
+
+const I18N={
+vi:{
+title:"PHÚ AI WEBNEW",
+subtitle:"RUN DEMO 003 · Phiên bản + Chỉnh sửa",
+create:"① Tạo Project + V1",
+revision:"Revision",
+placeholder:"Nhập yêu cầu sửa...",
+createRevision:"② Tạo Revision",
+versions:"Versions",
+preview:"Preview"
+},
+en:{
+title:"PHÚ AI WEBNEW",
+subtitle:"RUN DEMO 003 · Version + Revision",
+create:"① Create Project + V1",
+revision:"Revision",
+placeholder:"Enter revision request...",
+createRevision:"② Create Revision",
+versions:"Versions",
+preview:"Preview"
+}
+};
+
+let currentLang=localStorage.getItem("wfb_lang")||"vi";
+
+function setLang(lang){
+currentLang=lang;
+localStorage.setItem("wfb_lang",lang);
+
+const t=I18N[lang];
+
+document.getElementById("title").textContent=t.title;
+document.getElementById("subtitle").textContent=t.subtitle;
+document.getElementById("createBtn").textContent=t.create;
+document.getElementById("revisionTitle").textContent=t.revision;
+document.getElementById("note").placeholder=t.placeholder;
+document.getElementById("revisionBtn").textContent=t.createRevision;
+document.getElementById("versionsTitle").textContent=t.versions;
+
+refresh();
+}
+
+async function call(u,o){
+const r=await fetch(u,o);
+const d=await r.json();
+
+if(!r.ok) throw Error(d.error||"Request failed");
+
+return d;
+}
+
+async function refresh(){
+
+const d=await call("/api/state");
+const t=I18N[currentLang];
+
+document.getElementById("out").innerHTML=(d.versions||[]).map(v=>`
+<div class="v">
+<b>${v.version}</b>
+<span>
+${v.status}
+<button onclick="window.open('/preview/${v.version}','_blank')">
+${t.preview}
+</button>
+</span>
+</div>
+`).join("");
+}
+
+async function v1(){
+
+try{
+
+await call("/api/project",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+projectName:document.getElementById("name").value
+})
+});
+
+await refresh();
+
+}catch(e){
+alert(e.message);
+}
+
+}
+
+async function revision(){
+
+try{
+
+await call("/api/revision",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+note:document.getElementById("note").value
+})
+});
+
+document.getElementById("note").value="";
+
+await refresh();
+
+}catch(e){
+alert(e.message);
+}
+
+}
+
+setLang(currentLang);
+
+</script>
+
+</body>
+</html>
