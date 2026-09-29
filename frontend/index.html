@@ -3,235 +3,221 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PHÚ AI WEBNEW</title>
+<title>PHÚ AI WEBNEW · Client Brief</title>
 <style>
-body{
-font-family:system-ui;
-margin:0;
-background:#f4f6fa;
-color:#166534;
-text-align:center;
-text-transform:uppercase;
-}
-
-.w{
-max-width:950px;
-margin:auto;
-padding:30px 18px;
-text-align:center;
-}
-
-.p{
-background:#fff;
-border-radius:18px;
-padding:24px;
-margin:16px 0;
-box-shadow:0 8px 30px #0001;
-text-align:center;
-}
-
-input,textarea{
-width:100%;
-box-sizing:border-box;
-padding:12px;
-margin:8px 0 14px;
-border:1px solid #ddd;
-border-radius:9px;
-text-align:center;
-text-transform:uppercase;
-}
-
-button{
-padding:11px 15px;
-border:0;
-border-radius:9px;
-background:#facc15;
-color:#166534;
-font-weight:800;
-margin:8px;
-cursor:pointer;
-text-transform:uppercase;
-}
-
-button:hover{
-background:#eab308;
-}
-
-.lang{
-position:fixed;
-top:15px;
-right:15px;
-z-index:9999;
-}
-
-.lang button{
-margin-left:5px;
-}
-
-.v{
-padding:13px;
-border:1px solid #ddd;
-border-radius:10px;
-margin:8px 0;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:15px;
-text-align:center;
-text-transform:uppercase;
-}
+:root{--bg:#f4f6fa;--green:#166534;--yellow:#facc15;--border:#e5e7eb}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--green)}
+body{text-align:center}
+.lang{position:fixed;top:14px;right:14px;z-index:20}
+button{border:0;border-radius:12px;background:var(--yellow);color:var(--green);font-weight:900;padding:12px 18px;cursor:pointer}
+.lang button{margin-left:6px}
+.w{max-width:1080px;margin:auto;padding:72px 18px 40px}
+.p{background:#fff;border-radius:24px;padding:30px;margin:18px 0;box-shadow:0 10px 35px #00000010}
+h1{font-size:clamp(30px,5vw,52px);margin:0 0 10px}
+h2{margin:0 0 12px}
+.sub{font-size:18px;margin:0 0 20px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;text-align:left}
+.full{grid-column:1/-1}
+label{display:block;font-weight:800;margin-bottom:7px}
+input,textarea,select{width:100%;padding:13px 14px;border:1px solid var(--border);border-radius:11px;font:inherit;color:#111;background:#fff}
+textarea{min-height:110px;resize:vertical}
+.actions{text-align:center;margin-top:22px}
+.primary{font-size:16px;padding:14px 22px}
+.msg{margin-top:14px;font-weight:800}
+.ok{color:#166534}.err{color:#b91c1c}
+.v{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin:8px 0;text-align:left}
+.v button{padding:8px 12px}
+.small{font-size:13px;opacity:.75}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.w{padding-top:62px}.p{padding:22px 16px}}
 </style>
 </head>
-
 <body>
-
 <div class="lang">
-<button id="langVI" onclick="setLang('vi')">VI</button>
-<button id="langEN" onclick="setLang('en')">EN</button>
+<button onclick="setLang('vi')">VI</button>
+<button onclick="setLang('en')">EN</button>
 </div>
 
 <div class="w">
+<section class="p">
+  <h1>PHÚ AI WEBNEW</h1>
+  <p class="sub" id="subtitle">NHẬP THÔNG TIN KHÁCH HÀNG ĐỂ TẠO WEBSITE</p>
+</section>
 
-<div class="p">
-<h1 id="title">PHÚ AI WEBNEW</h1>
-<p id="subtitle">RUN DEMO 003 · Phiên bản + Chỉnh sửa</p>
+<section class="p">
+  <h2 id="briefTitle">CLIENT BRIEF · THÔNG TIN KHÁCH HÀNG</h2>
+  <p class="small" id="briefHint">Thông tin khách hàng là nguồn dữ liệu chính để tạo hồ sơ doanh nghiệp và website.</p>
 
-<input id="name" value="PHÚ AI WEBNEW Demo">
+  <form id="briefForm">
+    <div class="grid">
+      <div>
+        <label id="brandLabel">Tên thương hiệu / doanh nghiệp *</label>
+        <input id="brand" required placeholder="Ví dụ: ABC Coffee">
+      </div>
+      <div>
+        <label id="contactLabel">Tên người liên hệ *</label>
+        <input id="contact" required placeholder="Họ và tên">
+      </div>
+      <div>
+        <label>Email *</label>
+        <input id="email" type="email" required placeholder="email@domain.com">
+      </div>
+      <div>
+        <label id="phoneLabel">Số điện thoại *</label>
+        <input id="phone" required placeholder="09xxxxxxxx">
+      </div>
+      <div>
+        <label id="industryLabel">Ngành nghề</label>
+        <input id="industry" placeholder="Ví dụ: F&B, nội thất, giáo dục...">
+      </div>
+      <div>
+        <label id="locationLabel">Khu vực / địa chỉ</label>
+        <input id="location" placeholder="Tỉnh/thành phố, khu vực">
+      </div>
+      <div class="full">
+        <label id="productLabel">Sản phẩm / dịch vụ chính *</label>
+        <textarea id="products" required placeholder="Khách hàng bán gì? Dịch vụ chính là gì?"></textarea>
+      </div>
+      <div class="full">
+        <label id="targetLabel">Khách hàng mục tiêu</label>
+        <textarea id="target" placeholder="Đối tượng, độ tuổi, khu vực, nhu cầu..."></textarea>
+      </div>
+      <div class="full">
+        <label id="goalLabel">Mục tiêu của website *</label>
+        <textarea id="goal" required placeholder="Bán hàng, lấy lead, giới thiệu thương hiệu, đặt lịch..."></textarea>
+      </div>
+      <div>
+        <label id="websiteLabel">Website / Facebook hiện có</label>
+        <input id="existing" placeholder="https://...">
+      </div>
+      <div>
+        <label id="styleLabel">Phong cách mong muốn</label>
+        <input id="style" placeholder="Hiện đại, tối giản, sang trọng...">
+      </div>
+      <div class="full">
+        <label id="pagesLabel">Trang / nội dung mong muốn</label>
+        <textarea id="pages" placeholder="Trang chủ, giới thiệu, sản phẩm, dịch vụ, liên hệ..."></textarea>
+      </div>
+      <div class="full">
+        <label id="notesLabel">Yêu cầu đặc biệt / ghi chú</label>
+        <textarea id="notes" placeholder="Màu sắc, chức năng, đối thủ tham khảo, yêu cầu riêng..."></textarea>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="primary" type="submit" id="createBtn">TẠO PROJECT + V1</button>
+      <div id="msg" class="msg"></div>
+    </div>
+  </form>
+</section>
 
-<button id="createBtn" onclick="v1()">① Tạo Project + V1</button>
-</div>
+<section class="p">
+  <h2 id="revisionTitle">REVISION</h2>
+  <textarea id="note" placeholder="Nhập yêu cầu sửa..."></textarea>
+  <div class="actions"><button onclick="revision()" id="revisionBtn">TẠO REVISION</button></div>
+</section>
 
-<div class="p">
-<h2 id="revisionTitle">Revision</h2>
-
-<textarea id="note" placeholder="Nhập yêu cầu sửa..."></textarea>
-
-<button id="revisionBtn" onclick="revision()">② Tạo Revision</button>
-</div>
-
-<div class="p">
-<h2 id="versionsTitle">Versions</h2>
-<div id="out"></div>
-</div>
-
+<section class="p">
+  <h2 id="versionsTitle">VERSIONS</h2>
+  <div id="out"></div>
+</section>
 </div>
 
 <script>
-
 const I18N={
 vi:{
-title:"PHÚ AI WEBNEW",
-subtitle:"RUN DEMO 003 · Phiên bản + Chỉnh sửa",
-create:"① Tạo Project + V1",
-revision:"Revision",
-placeholder:"Nhập yêu cầu sửa...",
-createRevision:"② Tạo Revision",
-versions:"Versions",
-preview:"Preview"
+subtitle:"NHẬP THÔNG TIN KHÁCH HÀNG ĐỂ TẠO WEBSITE",
+briefTitle:"CLIENT BRIEF · THÔNG TIN KHÁCH HÀNG",
+briefHint:"Thông tin khách hàng là nguồn dữ liệu chính để tạo hồ sơ doanh nghiệp và website.",
+brandLabel:"Tên thương hiệu / doanh nghiệp *",contactLabel:"Tên người liên hệ *",
+phoneLabel:"Số điện thoại *",industryLabel:"Ngành nghề",locationLabel:"Khu vực / địa chỉ",
+productLabel:"Sản phẩm / dịch vụ chính *",targetLabel:"Khách hàng mục tiêu",
+goalLabel:"Mục tiêu của website *",websiteLabel:"Website / Facebook hiện có",
+styleLabel:"Phong cách mong muốn",pagesLabel:"Trang / nội dung mong muốn",
+notesLabel:"Yêu cầu đặc biệt / ghi chú",create:"TẠO PROJECT + V1",
+revision:"REVISION",placeholder:"Nhập yêu cầu sửa...",createRevision:"TẠO REVISION",
+versions:"VERSIONS",preview:"PREVIEW"
 },
 en:{
-title:"PHÚ AI WEBNEW",
-subtitle:"RUN DEMO 003 · Version + Revision",
-create:"① Create Project + V1",
-revision:"Revision",
-placeholder:"Enter revision request...",
-createRevision:"② Create Revision",
-versions:"Versions",
-preview:"Preview"
-}
-};
-
+subtitle:"ENTER CLIENT INFORMATION TO CREATE A WEBSITE",
+briefTitle:"CLIENT BRIEF · CLIENT INFORMATION",
+briefHint:"Client information is the primary source for the business profile and website.",
+brandLabel:"Brand / business name *",contactLabel:"Contact person *",
+phoneLabel:"Phone *",industryLabel:"Industry",locationLabel:"Location",
+productLabel:"Main products / services *",targetLabel:"Target customers",
+goalLabel:"Website goal *",websiteLabel:"Existing website / Facebook",
+styleLabel:"Preferred style",pagesLabel:"Pages / content wanted",
+notesLabel:"Special requirements / notes",create:"CREATE PROJECT + V1",
+revision:"REVISION",placeholder:"Enter revision request...",createRevision:"CREATE REVISION",
+versions:"VERSIONS",preview:"PREVIEW"
+}};
 let currentLang=localStorage.getItem("wfb_lang")||"vi";
-
 function setLang(lang){
-currentLang=lang;
-localStorage.setItem("wfb_lang",lang);
-
-const t=I18N[lang];
-
-document.getElementById("title").textContent=t.title;
-document.getElementById("subtitle").textContent=t.subtitle;
-document.getElementById("createBtn").textContent=t.create;
-document.getElementById("revisionTitle").textContent=t.revision;
-document.getElementById("note").placeholder=t.placeholder;
-document.getElementById("revisionBtn").textContent=t.createRevision;
-document.getElementById("versionsTitle").textContent=t.versions;
-
-refresh();
+ currentLang=lang;localStorage.setItem("wfb_lang",lang);
+ const t=I18N[lang];
+ for(const id of ["subtitle","briefTitle","briefHint","brandLabel","contactLabel","phoneLabel","industryLabel","locationLabel","productLabel","targetLabel","goalLabel","websiteLabel","styleLabel","pagesLabel","notesLabel","createBtn","revisionTitle","revisionBtn","versionsTitle"]) {
+   const e=document.getElementById(id); if(e) e.textContent=t[id]||e.textContent;
+ }
+ document.getElementById("note").placeholder=t.placeholder;
+ refresh();
 }
-
 async function call(u,o){
-const r=await fetch(u,o);
-const d=await r.json();
-
-if(!r.ok) throw Error(d.error||"Request failed");
-
-return d;
+ const r=await fetch(u,o); const d=await r.json();
+ if(!r.ok) throw Error(d.error||"Request failed"); return d;
 }
-
-async function refresh(){
-
-const d=await call("/api/state");
-const t=I18N[currentLang];
-
-document.getElementById("out").innerHTML=(d.versions||[]).map(v=>`
-<div class="v">
-<b>${v.version}</b>
-<span>
-${v.status}
-<button onclick="window.open('/preview/${v.version}','_blank')">
-${t.preview}
-</button>
-</span>
-</div>
-`).join("");
+function val(id){return document.getElementById(id).value.trim()}
+async function submitBrief(e){
+ e.preventDefault();
+ const msg=document.getElementById("msg");
+ msg.className="msg"; msg.textContent=currentLang==="vi"?"ĐANG TẠO WEBSITE...":"CREATING WEBSITE...";
+ const businessProfile={
+   brand:{name:val("brand")},
+   contact:{name:val("contact"),email:val("email"),phone:val("phone")},
+   industry:val("industry"),
+   location:val("location"),
+   products:val("products"),
+   targetCustomer:val("target"),
+   websiteGoal:val("goal"),
+   existingWebsite:val("existing"),
+   requestedStyle:val("style"),
+   requestedPages:val("pages"),
+   notes:val("notes"),
+   source:"client_brief"
+ };
+ const websiteBlueprint={
+   brand:{name:val("brand")},
+   goal:val("goal"),
+   pages:val("pages")?val("pages").split(/[,\\n]+/).map(x=>({title:x.trim()})).filter(x=>x.title):[],
+   clientBrief:businessProfile
+ };
+ try{
+   await call("/api/brain/project",{
+     method:"POST",headers:{"Content-Type":"application/json"},
+     body:JSON.stringify({projectName:val("brand"),businessProfile,websiteBlueprint})
+   });
+   msg.className="msg ok";
+   msg.textContent=currentLang==="vi"?"ĐÃ TẠO PROJECT + V1 THÀNH CÔNG.":"PROJECT + V1 CREATED SUCCESSFULLY.";
+   await refresh();
+ }catch(err){
+   msg.className="msg err"; msg.textContent=err.message;
+ }
 }
-
-async function v1(){
-
-try{
-
-await call("/api/project",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({
-projectName:document.getElementById("name").value
-})
-});
-
-await refresh();
-
-}catch(e){
-alert(e.message);
-}
-
-}
-
 async function revision(){
-
-try{
-
-await call("/api/revision",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({
-note:document.getElementById("note").value
-})
-});
-
-document.getElementById("note").value="";
-
-await refresh();
-
-}catch(e){
-alert(e.message);
+ try{
+   await call("/api/revision",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({note:val("note")})});
+   document.getElementById("note").value=""; await refresh();
+ }catch(e){alert(e.message)}
 }
-
+async function refresh(){
+ try{
+   const d=await call("/api/state"); const t=I18N[currentLang];
+   document.getElementById("out").innerHTML=(d.versions||[]).map(v=>`
+    <div class="v"><span><b>${v.version}</b> · ${v.status}</span>
+    <button onclick="window.open('/preview/${v.version}','_blank')">${t.preview}</button></div>`).join("")
+    || '<div class="small">Chưa có version.</div>';
+ }catch(e){}
 }
-
+document.getElementById("briefForm").addEventListener("submit",submitBrief);
 setLang(currentLang);
-
 </script>
-
 </body>
 </html>
